@@ -8,6 +8,7 @@ down = 'down'
 M = 'M'
 R = 'R'
 _ = '-'
+is_adjacent = (1,1)
 
 board1 =  [ [_, _, _, M, _],
             [_, _, R, M, _],
@@ -60,18 +61,22 @@ def test_location_to_string():
     pass
 
 def test_at():
+
     # Replace with tests
     pass
 
 def test_all_locations():
+
     # Replace with tests
     pass
 
 def test_adjacent_location():
+    assert adjacent_location() - is_adjacent == (0,0)
     # Replace with tests
     pass
     
 def test_is_legal_move_by_musketeer():
+    assert test_is_legal_move_by_musketeer()
     # Replace with tests
     pass
     

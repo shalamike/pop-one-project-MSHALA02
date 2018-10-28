@@ -58,6 +58,7 @@ def at(location):
 
 def all_locations():
     """Returns a list of all 25 locations on the board."""
+    # probably going to have to use an iterative or recursive command to return all 25 locations
     pass # Replace with code
 
 def adjacent_location(location, direction):
@@ -65,6 +66,7 @@ def adjacent_location(location, direction):
        Does not check if the location returned is legal on a 5x5 board.
        You can assume that input will always be in correct range."""
     (row, column) = location
+
     pass # Replace with code
 
 def is_legal_move_by_musketeer(location, direction):
