@@ -71,16 +71,18 @@ def test_all_locations():
     pass
 
 def test_adjacent_location():
-    assert adjacent_location() - is_adjacent == (0,0)
+    adjacent =  adjacent_location() - is_adjacent == (0,0)
+    assert adjacent == (0,0)
     # Replace with tests
     pass
     
 def test_is_legal_move_by_musketeer():
-    assert test_is_legal_move_by_musketeer()
+    assert test_is_legal_move_by_musketeer() ==
     # Replace with tests
     pass
     
 def test_is_legal_move_by_enemy():
+    assert test_is_legal_move_by_enemy() ==
     # Replace with tests
     pass
 
