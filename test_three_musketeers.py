@@ -16,12 +16,18 @@ board1 =  [ [_, _, _, M, _],
             [_, R, _, _, _],
             [_, _, _, R, _] ]
 
+board2 =  [ [_, R, _, M, _],
+            [_, _, R, _, _],
+            [_, R, M, R, _],
+            [_, _, _, _, _],
+            [R, _, _, _, M] ]
+
 def test_create_board():
     create_board()
     assert at((0,0)) == R
     assert at((0,4)) == M
     assert at ((2,1)) == R
-    assert at (2,2) == R
+    assert at ((2,2)) == M
     ##eventually add at least two more test cases
 
 def test_set_board():
@@ -30,10 +36,11 @@ def test_set_board():
     assert at((1,2)) == R
     assert at((1,3)) == M
     set_board(board2)
-    assert at((0,0)) == _
-    assert at ((4,1)) == M
-    assert at ((1,3)) == R
+    assert at ((0,0)) == _
+    assert at ((1,2)) == R
+    assert at ((4,4)) == M
     #eventually add some board2 and at least 3 tests with it
+
 
 def test_get_board():
     set_board(board1)
@@ -42,31 +49,31 @@ def test_get_board():
     assert board2 == get_board()
     #eventually add at least one more test with another board
 
+
 def test_string_to_location():
     with pytest.raises(ValueError):
         string_to_location('X3')
-    assert string_to_location('A0') == (0,0)
-    assert string_to_location('B1') == (1,1)
-    assert string_to_location('C4') == (2,3)
+    assert string_to_location('A1') == [0,0]
+    assert string_to_location('B2') == [1,1]
+    assert string_to_location('C4') == [2,3]
     ##eventually add at least one more exception test and two more
     ##test with correct inputs
 
 def test_location_to_string():
     with pytest.raises(ValueError):
-        location_to_string(5,5)
-    assert location_to_string(0,1) == 'A1'
-    assert location_to_string(2,3) == 'C4'
-    assert location_to_string(4,4) == 'E5'
+        location_to_string((5,5))
+    assert location_to_string((0,0)) == 'A1'
+    assert location_to_string((2,3)) == 'C4'
+    assert location_to_string((4,4)) == 'E5'
     ## Replace with tests
-    pass
+    ## Replace with tests
 
 def test_at():
-
     # Replace with tests
     pass
 
-def test_all_locations():
 
+def test_all_locations():
     # Replace with tests
     pass
 
@@ -77,12 +84,12 @@ def test_adjacent_location():
     pass
     
 def test_is_legal_move_by_musketeer():
-    assert test_is_legal_move_by_musketeer() ==
+    assert is_legal_move_by_musketeer() == True
     # Replace with tests
     pass
     
 def test_is_legal_move_by_enemy():
-    assert test_is_legal_move_by_enemy() ==
+    assert is_legal_move_by_enemy() == True
     # Replace with tests
     pass
 

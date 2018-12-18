@@ -42,16 +42,65 @@ def string_to_location(s):
        is outside of the correct range (between 'A' and 'E' for s[0] and
        between '1' and '5' for s[1]
        """
-    s = []
-    return s
+    to_location = []
+
+    if s[0] == "A":
+        to_location.append(0)
+    elif s[0] == "B":
+        to_location.append(1)
+    elif s[0] == "C":
+        to_location.append(2)
+    elif s[0] == "D":
+        to_location.append(3)
+    elif s[0] == "E":
+        to_location.append(4)
+    else:
+        raise ValueError('Invalid Location')
+
+    if s[1] == "1":
+        to_location.append(0)
+    elif s[1] == "2":
+        to_location.append(1)
+    elif s[1] == "3":
+        to_location.append(2)
+    elif s[1] == "4":
+        to_location.append(3)
+    elif s[1] == "5":
+        to_location.append(4)
+    else:
+        raise ValueError('Invalid Location')
+
+    return to_location
+
 
 def location_to_string(location):
     """Returns the string representation of a location.
     Similarly to the previous function, this function should raise
     ValueError exception if the input is outside of the correct range
     """
-    location = ""
-    return location
+
+    location_str = ""
+
+    if location[0] == 0:
+        location_str += "A"
+    elif location[0] == 1:
+        location_str += "B"
+    elif location[0] == 2:
+        location_str += "C"
+    elif location[0] == 3:
+        location_str += "D"
+    elif location[0] == 4:
+        location_str += "E"
+    else:
+        raise ValueError('Invalid String')
+
+    if location[1] >= 0 and location[1]<= 4:
+        for i in range(0, 5):
+            if location[1] == i and i < 5:
+                location_str += str(i + 1)
+                break
+    return location_str
+
 
 def at(location):
     """Returns the contents of the board at the given location.
