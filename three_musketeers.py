@@ -20,6 +20,7 @@ def create_board():
        Cardinal Richleau's men, and '-' denotes an empty space."""
     m = 'M'
     r = 'R'
+    e = '_'
     board = [ [r, r, r, r, m],
               [r, r, r, r, r],
               [r, r, m, r, r],
@@ -78,7 +79,6 @@ def location_to_string(location):
     Similarly to the previous function, this function should raise
     ValueError exception if the input is outside of the correct range
     """
-
     location_str = ""
 
     if location[0] == 0:
@@ -110,8 +110,14 @@ def at(location):
 def all_locations():
     """Returns a list of all 25 locations on the board."""
     # probably going to have to use an iterative or recursive command to return all 25 locations
-    all_poss_positions = []
-    return all_poss_positions
+    every_location = []
+    location = ()
+    for i in range (5):
+        for j in range (5):
+            location = (i,j)
+            every_location.append(location)
+
+    return every_location
 
 def adjacent_location(location, direction):
     """Return the location next to the given one, in the given direction.
@@ -193,6 +199,9 @@ def choose_computer_move(who):
 def is_enemy_win():
     """Returns True if all 3 Musketeers are in the same row or column."""
     pass # Replace with code
+
+
+
 
 #---------- Communicating with the user ----------
 #----you do not need to modify code below unless you find a bug

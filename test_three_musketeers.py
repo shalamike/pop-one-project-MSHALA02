@@ -44,15 +44,15 @@ def test_set_board():
 
 def test_get_board():
     set_board(board1)
-    set_board(board2)
     assert board1 == get_board()
-    assert board2 == get_board()
     #eventually add at least one more test with another board
 
 
 def test_string_to_location():
     with pytest.raises(ValueError):
         string_to_location('X3')
+        string_to_location('A0')
+        string_to_location('F1')
     assert string_to_location('A1') == [0,0]
     assert string_to_location('B2') == [1,1]
     assert string_to_location('C4') == [2,3]
@@ -62,6 +62,7 @@ def test_string_to_location():
 def test_location_to_string():
     with pytest.raises(ValueError):
         location_to_string((5,5))
+        location_to_string((7,1))
     assert location_to_string((0,0)) == 'A1'
     assert location_to_string((2,3)) == 'C4'
     assert location_to_string((4,4)) == 'E5'
@@ -70,11 +71,14 @@ def test_location_to_string():
 
 def test_at():
     # Replace with tests
-    pass
+    assert at((0,3)) == M
+    assert at((4,0)) == _
+    assert at((3, 1)) == R
 
 
 def test_all_locations():
     # Replace with tests
+    assert all_locations() == [(0,0),(0,1),(0,2),(0,3),(0,4),(1,0),(1,1),(1,2),(1,3),(1,4),(2,0),(2,1),(2,2),(2,3),(2,4),(3,0),(3,1),(3,2),(3,3),(3,4),(4,0),(4,1),(4,2),(4,3),(4,4)]
     pass
 
 def test_adjacent_location():
