@@ -124,21 +124,46 @@ def adjacent_location(location, direction):
        Does not check if the location returned is legal on a 5x5 board.
        You can assume that input will always be in correct range."""
     (row, column) = location
-    adjacent = []
+    adjacent = ()
+    if direction == "up":
+        if location[0] <= 4:
+            adjacent = location[0] - 1
+        elif location[0] <= 0:
+            raise ValueError("Invalid Location")
+    elif direction == "down":
+        if location[0] >=0:
+            adjacent = location[0] + 1
+        elif location[0] >= 4:
+            raise ValueError("Invalid Location")
+    elif direction == "left":
+        if location[1] <= 4:
+            adjacent = location[1] - 1
+        elif location[1] <= 0:
+            raise ValueError("Invalid Location")
+    elif direction == "right":
+        if location[1] >= 0:
+            adjacent = location[1] + 1
+        elif location[1] >= 4:
+            raise ValueError("Invalid Location")
     return adjacent
 
 def is_legal_move_by_musketeer(location, direction):
     """Tests if the Musketeer at the location can move in the direction.
     You can assume that input will always be in correct range. Raises
     ValueError exception if at(location) is not 'M'"""
-    is_legal = True
-    return is_legal
+    legal_move= False
+
+    if at(location) == "M" and at(adjacent_location(location,direction)) == "R" and at(location) in all_locations():
+        legal_move = True
+
+    return legal_move
 
 def is_legal_move_by_enemy(location, direction):
     """Tests if the enemy at the location can move in the direction.
     You can assume that input will always be in correct range. Raises
     ValueError exception if at(location) is not 'R'"""
-    pass # Replace with code
+    #pass # Replace with code
+
 
 def is_legal_move(location, direction):
     """Tests whether it is legal to move the piece at the location
