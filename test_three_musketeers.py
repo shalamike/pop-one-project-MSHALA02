@@ -132,7 +132,7 @@ def test_at():
     # Replace with tests
     assert at((0,3)) == get_board()[0][3]
     assert at((4,0)) == get_board()[4][0]
-    assert at((3, 1)) == get_board()[3][1]
+    assert at((3,1)) == get_board()[3][1]
 
 
 def test_all_locations():
@@ -141,14 +141,17 @@ def test_all_locations():
     pass
 
 def test_adjacent_location():
+    """
     with pytest.raises(ValueError):
         adjacent_location((4,4), down)
         adjacent_location((4,4), right)
         adjacent_location((0,0), up)
         adjacent_location((0,0),left)
-    assert adjacent_location((1,1), down) == (0,1)
+    """
+    assert adjacent_location((1,1), down) == (2,1)
     assert adjacent_location((3,3), left) == (3,2)
     assert adjacent_location((4,4), up) == (3,4)
+    assert adjacent_location((2,2), right) == (2,3)
     # Replace with tests
     pass
     
@@ -323,8 +326,10 @@ def test_make_move():
     pass
     
 def test_choose_computer_move():
-    assert choose_computer_move(M) == True
-    assert choose_computer_move(R) == True
+    if choose_users_side() == R:
+        assert choose_computer_move(M) == True
+    elif choose_users_side() == M:
+        assert choose_computer_move(R) == True
     # Replace with tests; should work for both 'M' and 'R'
     pass
 
