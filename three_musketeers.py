@@ -20,7 +20,7 @@ def create_board():
        Cardinal Richleau's men, and '-' denotes an empty space."""
     m = 'M'
     r = 'R'
-    e = '_'
+    _ = '_'
     board = [ [r, r, r, r, m],
               [r, r, r, r, r],
               [r, r, m, r, r],
@@ -124,45 +124,51 @@ def adjacent_location(location, direction):
        Does not check if the location returned is legal on a 5x5 board.
        You can assume that input will always be in correct range."""
     (row, column) = location
-    adjacent = ()
-    if direction == "up":
-        if location[0] <= 4:
-            adjacent = location[0] - 1
-        elif location[0] <= 0:
-            raise ValueError("Invalid Location")
+
+    adjacent = location
+    if direction == "up" :
+        adjacent = (row - 1, column)
     elif direction == "down":
-        if location[0] >=0:
-            adjacent = location[0] + 1
-        elif location[0] >= 4:
-            raise ValueError("Invalid Location")
+        adjacent = (row + 1, column)
     elif direction == "left":
-        if location[1] <= 4:
-            adjacent = location[1] - 1
-        elif location[1] <= 0:
-            raise ValueError("Invalid Location")
+        adjacent= (row, column - 1)
     elif direction == "right":
-        if location[1] >= 0:
-            adjacent = location[1] + 1
-        elif location[1] >= 4:
-            raise ValueError("Invalid Location")
-    return adjacent
+        adjacent = (row, column + 1)
+
+
+    if adjacent in all_locations():
+        adjacent = tuple(adjacent)
+        return adjacent
 
 def is_legal_move_by_musketeer(location, direction):
     """Tests if the Musketeer at the location can move in the direction.
     You can assume that input will always be in correct range. Raises
     ValueError exception if at(location) is not 'M'"""
-    legal_move= False
 
-    if at(location) == "M" and at(adjacent_location(location,direction)) == "R" and at(location) in all_locations():
-        legal_move = True
+    if at(location) != "M":
+        raise ValueError("Not A Musketeer")
+    else:
+        if adjacent_location(location, direction) in all_locations() and at(location) == "M" and at(adjacent_location(location,direction)) == "R":
+            return True
+        else:
+            return False
 
-    return legal_move
 
 def is_legal_move_by_enemy(location, direction):
     """Tests if the enemy at the location can move in the direction.
     You can assume that input will always be in correct range. Raises
     ValueError exception if at(location) is not 'R'"""
     #pass # Replace with code
+
+    if at(location) != "R":
+        raise ValueError ("Not Cardinal Richleau's men")
+    else:
+        if at(location) == "R" and  at(adjacent_location(location,direction)) == "_" and adjacent_location(location, direction) in all_locations():
+            return True
+        else:
+            return False
+
+
 
 
 def is_legal_move(location, direction):

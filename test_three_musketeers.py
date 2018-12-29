@@ -7,7 +7,7 @@ up = 'up'
 down = 'down'
 M = 'M'
 R = 'R'
-_ = '-'
+_ = '_'
 is_adjacent = (1,1)
 
 board1 =  [ [_, _, _, M, _],
@@ -132,7 +132,7 @@ def test_at():
     # Replace with tests
     assert at((0,3)) == get_board()[0][3]
     assert at((4,0)) == get_board()[4][0]
-    assert at((3, 1)) == get_board()[3][1]
+    assert at((3,1)) == get_board()[3][1]
 
 
 def test_all_locations():
@@ -141,25 +141,37 @@ def test_all_locations():
     pass
 
 def test_adjacent_location():
+    """
     with pytest.raises(ValueError):
         adjacent_location((4,4), down)
         adjacent_location((4,4), right)
         adjacent_location((0,0), up)
         adjacent_location((0,0),left)
-    assert adjacent_location((1,1), down) == (0,1)
+    """
+    assert adjacent_location((1,1), down) == (2,1)
     assert adjacent_location((3,3), left) == (3,2)
     assert adjacent_location((4,4), up) == (3,4)
+    assert adjacent_location((2,2), right) == (2,3)
     # Replace with tests
     pass
     
 def test_is_legal_move_by_musketeer():
     set_board(board1)
+    with pytest.raises(ValueError):
+        is_legal_move_by_musketeer((0,0), left)
+        is_legal_move_by_musketeer((4,1), right)
     assert is_legal_move_by_musketeer((1,3),down) == True
     assert is_legal_move_by_musketeer((0,3), left) == False
     set_board(board2)
+    with pytest.raises(ValueError):
+        is_legal_move_by_musketeer((4,3), down)
+        is_legal_move_by_musketeer((3,4), up)
     assert is_legal_move_by_musketeer((2, 2), up) == True
     assert is_legal_move_by_musketeer((0,3), left) == False
     set_board(board3)
+    with pytest.raises(ValueError):
+        is_legal_move_by_musketeer((0,3), left)
+        is_legal_move_by_musketeer((2,1), right)
     assert is_legal_move_by_musketeer((0,4), left) == False
     assert is_legal_move_by_musketeer((4, 4), down) == False
 
@@ -167,15 +179,21 @@ def test_is_legal_move_by_musketeer():
     
 def test_is_legal_move_by_enemy():
     set_board(board1)
+    with pytest.raises(ValueError):
+        is_legal_move_by_enemy((0,3), right)
+        is_legal_move_by_enemy((4,4), left)
     assert is_legal_move_by_enemy((1,2), left) == True
     assert is_legal_move_by_enemy((2,1), right) == False
     set_board(board2)
-    assert is_legal_move_by_enemy((0,1), left) == True
-    assert is_legal_move_by_enemy((2,3), down) == False
-    set_board(board3)
-    assert is_legal_move_by_enemy((0,0), right) == True
-    assert is_legal_move_by_enemy((0,0), left) == False
+    with pytest.raises(ValueError):
+        is_legal_move_by_enemy((1,1), right)
+        is_legal_move_by_enemy((2,2), down)
+    assert is_legal_move_by_enemy((0,1), right) == True
+    assert is_legal_move_by_enemy((2,3), left) == False
     set_board(board4)
+    with pytest.raises(ValueError):
+        is_legal_move_by_enemy((2,2), right)
+        is_legal_move_by_enemy((4,4), down)
     assert is_legal_move_by_enemy((0,0), right) == False
     assert is_legal_move_by_enemy((0,0), down) == False
 
@@ -246,7 +264,7 @@ def test_possible_moves_from():
 
 
     """
-    skeleton code for testy possibel moves
+    skeleton code for testing possible moves
     
     assert possible_moves_from(())
     """
@@ -323,8 +341,10 @@ def test_make_move():
     pass
     
 def test_choose_computer_move():
-    assert choose_computer_move(M) == True
-    assert choose_computer_move(R) == True
+    if choose_users_side() == R:
+        assert choose_computer_move(M) == True
+    elif choose_users_side() == M:
+        assert choose_computer_move(R) == True
     # Replace with tests; should work for both 'M' and 'R'
     pass
 
