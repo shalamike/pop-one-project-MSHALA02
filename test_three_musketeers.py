@@ -203,7 +203,11 @@ def test_is_legal_move_by_enemy():
 def test_is_legal_move():
     # Replace with tests
     #pass
-    set_board(board1)
+    set_board([ [_, _, _, M, _],
+                [_, _, R, M, _],
+                [_, R, M, R, _],
+                [_, R, _, _, _],
+                [_, _, _, R, _] ])
     assert is_legal_move_by_enemy((4,3), right) == True
     assert is_legal_move_by_musketeer((1,3),left) == True
     assert is_legal_move_by_enemy((2,3), up) == False
