@@ -169,19 +169,33 @@ def is_legal_move_by_enemy(location, direction):
             return False
 
 
-
-
 def is_legal_move(location, direction):
     """Tests whether it is legal to move the piece at the location
     in the given direction.
     You can assume that input will always be in correct range."""
-    pass # Replace with code
+    #pass # Replace with code
+    if at(location) == "M":
+        return is_legal_move_by_musketeer(location, direction)
+    elif at(location) == "R":
+        return is_legal_move_by_enemy(location, direction)
+
+
 
 def can_move_piece_at(location):
     """Tests whether the player at the location has at least one move available.
-    You can assume that input will always be in correct range.
-    You can assume that input will always be in correct range."""
-    pass # Replace with code
+        You can assume that input will always be in correct range.
+        You can assume that input will always be in correct range."""
+    #pass # Replace with code
+    all_possible_directions = ["up", "down", "left", "right"]
+
+    can_move = False
+
+    for possible_direction in all_possible_directions:
+        if is_legal_move(location, possible_direction) == True:
+            can_move = True
+            break
+
+    return can_move
 
 
 def has_some_legal_move_somewhere(who):
@@ -189,7 +203,29 @@ def has_some_legal_move_somewhere(who):
     be either 'M' or 'R'). Does not provide any information on where
     the legal move is.
     You can assume that input will always be in correct range."""
-    pass # Replace with code
+    #pass # Replace with code
+
+    has_legal_move = False
+
+    if who == "M":
+       for location_on_board in all_locations():
+           if at(location_on_board) == "M":
+               if can_move_piece_at(location_on_board) == True:
+                   has_legal_move = True
+               else:
+                   pass
+
+    elif who == "R":
+       for location_on_board in all_locations():
+           if at(location_on_board) == "R":
+               if can_move_piece_at(location_on_board) == True:
+                   has_legal_move = True
+               else:
+                   pass
+
+
+    return has_legal_move
+
 
 def possible_moves_from(location):
     """Returns a list of directions ('left', etc.) in which it is legal
