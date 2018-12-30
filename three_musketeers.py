@@ -163,7 +163,8 @@ def is_legal_move_by_enemy(location, direction):
     if at(location) != "R":
         raise ValueError ("Not Cardinal Richleau's men")
     else:
-        if at(location) == "R" and  at(adjacent_location(location,direction)) == "_" and adjacent_location(location, direction) in all_locations():
+        if adjacent_location(location, direction) in all_locations() and at(location) == "R" and at(adjacent_location(location,direction)) == "_":
+        #if at(location) == "R" and  at(adjacent_location(location,direction)) == "_" and adjacent_location(location, direction) in all_locations():
             return True
         else:
             return False
@@ -205,26 +206,23 @@ def has_some_legal_move_somewhere(who):
     You can assume that input will always be in correct range."""
     #pass # Replace with code
 
-    has_legal_move = False
+    has_a_legal_move = False
 
     if who == "M":
-       for location_on_board in all_locations():
-           if at(location_on_board) == "M":
-               if can_move_piece_at(location_on_board) == True:
-                   has_legal_move = True
-               else:
-                   pass
+        for location in all_locations():
+            if at(location) == "M" and can_move_piece_at(location) == True:
+                has_a_legal_move = True
+                print(at(location))
+                break
+    else:
+        for location in all_locations():
+            if at(location) == "R" and can_move_piece_at(location) == True:
+                has_a_legal_move = True
+                print(at(location))
+                break
 
-    elif who == "R":
-       for location_on_board in all_locations():
-           if at(location_on_board) == "R":
-               if can_move_piece_at(location_on_board) == True:
-                   has_legal_move = True
-               else:
-                   pass
+    return has_a_legal_move
 
-
-    return has_legal_move
 
 
 def possible_moves_from(location):
@@ -232,23 +230,72 @@ def possible_moves_from(location):
        for the player at location to move. If there is no player at
        location, returns the empty list, [].
        You can assume that input will always be in correct range."""
-    pass # Replace with code
+    #pass # Replace with code
+    all_possible_directions = ["up", "down", "left", "right"]
+
+    valid_directions = []
+
+    if can_move_piece_at(location) == True:
+        for direction in all_possible_directions:
+            if is_legal_move(location, direction) == True:
+                valid_directions.append(direction)
+
+    return valid_directions
+
 
 def is_legal_location(location):
     """Tests if the location is legal on a 5x5 board.
     You can assume that input will always be in correct range."""
-    pass # Replace with code
+    #pass # Replace with code
+
+    location_is_legal = False
+
+    if location in all_locations():
+        location_is_legal = True
+
+    return location_is_legal
+
     
 def is_within_board(location, direction):
     """Tests if the move stays within the boundaries of the board.
     You can assume that input will always be in correct range."""
-    pass # Replace with code
-    
+    #pass # Replace with code
+
+    move_is_legal = False
+
+    if adjacent_location(location,direction) in all_locations():
+        move_is_legal = True
+
+    return move_is_legal
+
+
 def all_possible_moves_for(player):
     """Returns every possible move for the player ('M' or 'R') as a list
        (location, direction) tuples.
        You can assume that input will always be in correct range."""
-    pass # Replace with code
+    #pass # Replace with code
+
+    all_possible_moves = []
+
+    if player == "M":
+        if has_some_legal_move_somewhere("M") == True:
+            for location in all_locations():
+                if at(location) == player and possible_moves_from(location) == True:
+                    for direction in possible_moves_from(location):
+                        all_possible_moves.append((location, direction))
+
+    elif player == "R":
+        if has_some_legal_move_somewhere("M") == True:
+            for location in all_locations():
+                if at(location) == player and possible_moves_from(location) == True:
+                    for direction in possible_moves_from(location):
+                        all_possible_moves.append((location, direction))
+
+
+
+    return all_possible_moves
+
+
 
 def make_move(location, direction):
     """Moves the piece in location in the indicated direction.

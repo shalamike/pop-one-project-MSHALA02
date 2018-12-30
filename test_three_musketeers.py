@@ -133,6 +133,11 @@ def test_at():
     assert at((0,3)) == get_board()[0][3]
     assert at((4,0)) == get_board()[4][0]
     assert at((3,1)) == get_board()[3][1]
+    #testing with strings
+    set_board(board1)
+    assert at((0,3)) == "M"
+    assert at((4,0)) == "_"
+    assert at((3,1)) == "R"
 
 
 def test_all_locations():
@@ -201,8 +206,7 @@ def test_is_legal_move_by_enemy():
     pass
 
 def test_is_legal_move():
-    # Replace with tests
-    #pass
+
     set_board(board1)
     assert is_legal_move((4,3), right) == True
     assert is_legal_move((1,3),left) == True
@@ -214,6 +218,7 @@ def test_is_legal_move():
     assert is_legal_move((2,2), right) == True
     assert is_legal_move((1,2), down ) == False
     assert is_legal_move((4,4), up) == False
+
 
 """
 Skeleton code for test legal move
@@ -235,33 +240,33 @@ def test_can_move_piece_at():
 
 def test_has_some_legal_move_somewhere():
     set_board(board1)
-    assert has_some_legal_move_somewhere(M) == True
-    assert has_some_legal_move_somewhere(R) == True
+    assert has_some_legal_move_somewhere("M") == True
+    assert has_some_legal_move_somewhere("R") == True
     set_board(board3)
-    assert has_some_legal_move_somewhere(M) == False
-    assert has_some_legal_move_somewhere(R) == True
+    assert has_some_legal_move_somewhere("M") == False
+    assert has_some_legal_move_somewhere("R") == True
     set_board(board4)
-    assert has_some_legal_move_somewhere(M) == True
-    assert has_some_legal_move_somewhere(R) == False
+    assert has_some_legal_move_somewhere("M") == True
+    assert has_some_legal_move_somewhere("R") == False
     # Eventually put at least three additional tests here
     # with at least one additional board
 
 def test_possible_moves_from():
     set_board(board1)
-    assert possible_moves_from((2,2)) == [left, right, up]
-    assert possible_moves_from((3,1)) == [left, right, down]
-    assert possible_moves_from((4,3)) == [left, right, up]
-    assert possible_moves_from((1,3)) == [left, down]
+    assert possible_moves_from((2,2)).sort() == [left, right, up].sort()
+    assert possible_moves_from((3,1)).sort() == [left, right, down].sort()
+    assert possible_moves_from((4,3)).sort() == [left, right, up].sort()
+    assert possible_moves_from((1,3)).sort() == [left, down].sort()
     set_board(board2)
-    assert possible_moves_from((4,0)) == [right, up]
-    assert possible_moves_from((4,4)) == []
-    assert possible_moves_from((0,1)) == [left, right, down]
+    assert possible_moves_from((4,0)).sort() == [right, up].sort()
+    assert possible_moves_from((4,4)).sort() == [].sort()
+    assert possible_moves_from((0,1)).sort() == [left, right, down].sort()
     set_board(board3)
-    assert possible_moves_from((0,4)) == []
-    assert possible_moves_from((2,2)) == []
-    assert possible_moves_from((4,4)) == []
+    assert possible_moves_from((0,4)).sort() == [].sort()
+    assert possible_moves_from((2,2)).sort() == [].sort()
+    assert possible_moves_from((4,4)).sort() == [].sort()
     set_board(board4)
-    assert possible_moves_from((0,0)) ==[]
+    assert possible_moves_from((0,0)).sort() ==[].sort()
 
 
     """
@@ -309,13 +314,13 @@ def test_is_within_board():
 
 def test_all_possible_moves_for():
     set_board(board1)
-    assert all_possible_moves_for(M) == [((1,3), left), ((1,3), down), ((2,2), left), ((2,2), up), ((2,2), right)]
-    assert all_possible_moves_for(R) == [((1,2), left), ((1,2), up), ((2,1), left), ((2,1), up), ((2,3), down), ((2,3), right), ((3,1), left), ((3,1), right), ((3,1), down), ((4,3), left), ((4,3), right), ((4,3), up)]
+    assert set(all_possible_moves_for(M)) == set([((1, 3), left), ((1, 3), down), ((2, 2), left), ((2, 2), up), ((2, 2), right)])
+    assert set(all_possible_moves_for(R)) == set([((1,2), left), ((1,2), up), ((2,1), left), ((2,1), up), ((2,3), down), ((2,3), right), ((3,1), left), ((3,1), right), ((3,1), down), ((4,3), left), ((4,3), right), ((4,3), up)])
     set_board(board3)
-    assert all_possible_moves_for(M) == []
-    assert all_possible_moves_for(R) == [((0,0), right), ((0,0), down), ((0,2), left), ((0,2), down), ((0,2), right), ((2,4), up), ((2,4), right), ((2,4), down), ((4,0), up), ((4,0), right), ((4,2), left), ((4,2), up), ((4,2), right)]
+    assert set(all_possible_moves_for(M)) == set([])
+    assert set(all_possible_moves_for(R)) == set([((0,0), right), ((0,0), down), ((0,2), left), ((0,2), down), ((0,2), right), ((2,4), up), ((2,4), right), ((2,4), down), ((4,0), up), ((4,0), right), ((4,2), left), ((4,2), up), ((4,2), right)])
     set_board(board4)
-    assert all_possible_moves_for(M) == [((0,1), left), ((1,0), up)]
+    assert set(all_possible_moves_for(M)) == set([((0,1), left), ((1,0), up)])
     # Replace with tests
     #pass
     
