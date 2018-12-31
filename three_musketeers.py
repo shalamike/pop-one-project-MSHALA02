@@ -293,9 +293,10 @@ def make_move(location, direction):
     #pass # Replace with code
     get_board()
     current_board = board
-    new_move = adjacent_location(location, direction)
-    current_board[new_move[0]][new_move[1]] = at(location)
-    current_board[location[0]][location[1]] = "_"
+    if is_legal_location(location) == True and is_legal_move(location,direction) == True and can_move_piece_at(location) == True:
+        new_move = adjacent_location(location, direction)
+        current_board[new_move[0]][new_move[1]] = at(location)
+        current_board[location[0]][location[1]] = "_"
 
     (set_board(current_board))
 

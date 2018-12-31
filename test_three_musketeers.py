@@ -336,13 +336,13 @@ def test_make_move():
                                      [_, R, _, R, _],
                                      [_, R, _, _, _],
                                      [_, _, _, R, _]]
-"""
+    set_board(board1)
     assert make_move((4,3), left) ==[ [_, _, _, M, _],
                                       [_, _, R, M, _],
                                       [_, R, M, R, _],
                                       [_, R, _, _, _],
                                       [_, _, R, _, _] ]
-
+    set_board(board1)
     assert  make_move((2,3), right) == [ [_, _, _, M, _],
                                          [_, _, R, M, _],
                                          [_, R, M, _, R],
@@ -350,7 +350,7 @@ def test_make_move():
                                          [_, _, _, R, _] ]
     # Replace with tests
     #pass
-    """
+
 def test_choose_computer_move():
     if choose_users_side() == R:
         assert choose_computer_move(M) == True
