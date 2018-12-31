@@ -160,6 +160,7 @@ def is_legal_move_by_enemy(location, direction):
     ValueError exception if at(location) is not 'R'"""
     #pass # Replace with code
 
+
     if at(location) != "R":
         raise ValueError ("Not Cardinal Richleau's men")
     else:
@@ -274,34 +275,32 @@ def all_possible_moves_for(player):
        (location, direction) tuples.
        You can assume that input will always be in correct range."""
     #pass # Replace with code
-
     all_possible_moves = []
 
-    if player == "M":
-        if has_some_legal_move_somewhere("M") == True:
-            for location in all_locations():
-                if at(location) == player and possible_moves_from(location) == True:
-                    for direction in possible_moves_from(location):
-                        all_possible_moves.append((location, direction))
-
-    elif player == "R":
-        if has_some_legal_move_somewhere("M") == True:
-            for location in all_locations():
-                if at(location) == player and possible_moves_from(location) == True:
-                    for direction in possible_moves_from(location):
-                        all_possible_moves.append((location, direction))
-
-
+    if has_some_legal_move_somewhere(player) == True:
+        for location in all_locations():
+            for move in possible_moves_from(location):
+                if at(location) == player and can_move_piece_at(location) == True:
+                    all_possible_moves.append((location, move))
 
     return all_possible_moves
-
 
 
 def make_move(location, direction):
     """Moves the piece in location in the indicated direction.
     Doesn't check if the move is legal. You can assume that input will always
     be in correct range."""
-    pass # Replace with code
+    #pass # Replace with code
+    get_board()
+    current_board = board
+    new_move = adjacent_location(location, direction)
+    current_board[new_move[0]][new_move[1]] = at(location)
+    current_board[location[0]][location[1]] = "_"
+
+    (set_board(current_board))
+
+    return board
+
 
 def choose_computer_move(who):
     """The computer chooses a move for a Musketeer (who = 'M') or an
