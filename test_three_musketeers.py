@@ -1,5 +1,6 @@
 import pytest
 from three_musketeers import *
+import random
 
 left = 'left'
 right = 'right'
@@ -11,6 +12,13 @@ _ = '_'
 is_adjacent = (1,1)
 
 board1 =  [ [_, _, _, M, _],
+            [_, _, R, M, _],
+            [_, R, M, R, _],
+            [_, R, _, _, _],
+            [_, _, _, R, _] ]
+
+#this board is a backup of the original one to be used after the make move tests as they will manipulate the orriginal places on the board
+board1a =  [ [_, _, _, M, _],
             [_, _, R, M, _],
             [_, R, M, R, _],
             [_, R, _, _, _],
@@ -316,12 +324,11 @@ def test_is_within_board():
     #pass
 
 def test_all_possible_moves_for1():
+    # Replace with tests
+    #pass
     set_board(board1)
     assert set(all_possible_moves_for(M)) == set([((1, 3), left), ((1, 3), down), ((2, 2), left), ((2, 2), up), ((2, 2), right)])
     assert set(all_possible_moves_for(R)) == set([((1, 2), left), ((1, 2), up), ((2, 1), left), ((2, 1), up), ((2, 3), down), ((2, 3), right), ((3, 1), left), ((3, 1), right), ((3, 1), down), ((4, 3), left), ((4, 3), right), ((4, 3), up)])
-    # Replace with tests
-    #pass
-def test_all_possible_moves_for2():
     set_board(board3)
     assert set(all_possible_moves_for(M)) == set([])
     assert set(all_possible_moves_for(R)) == set([((0,0), down),((0,0), right), ((0,2), left),((0,2), down), ((0,2), right), ((2,4), up), ((2,4), left), ((2,4), down), ((4,0), up), ((4,0), right), ((4,2), left), ((4,2), up), ((4,2), right)])
@@ -330,32 +337,46 @@ def test_all_possible_moves_for2():
 
 
 def test_make_move():
+
     set_board(board1)
     assert make_move((2,2), up) == [ [_, _, _, M, _],
                                      [_, _, M, M, _],
                                      [_, R, _, R, _],
                                      [_, R, _, _, _],
-                                     [_, _, _, R, _]]
+                                     [_, _, _, R, _] ]
+
+
     set_board(board1)
-    assert make_move((4,3), left) ==[ [_, _, _, M, _],
-                                      [_, _, R, M, _],
-                                      [_, R, M, R, _],
-                                      [_, R, _, _, _],
-                                      [_, _, R, _, _] ]
+    assert make_move((4,3), left) == [ [_, _, _, M, _],
+                                       [_, _, M, M, _],
+                                       [_, R, _, R, _],
+                                       [_, R, _, _, _],
+                                       [_, _, R, _, _] ]
+
     set_board(board1)
     assert  make_move((2,3), right) == [ [_, _, _, M, _],
-                                         [_, _, R, M, _],
-                                         [_, R, M, _, R],
+                                         [_, _, M, M, _],
+                                         [_, R, _, _, R],
                                          [_, R, _, _, _],
-                                         [_, _, _, R, _] ]
+                                         [_, _, R, _, _] ]
+
     # Replace with tests
     #pass
 
 def test_choose_computer_move():
-    if choose_users_side() == R:
-        assert choose_computer_move(M) == True
-    elif choose_users_side() == M:
-        assert choose_computer_move(R) == True
+    set_board(board2)
+    assert make_move(choose_computer_move(M)[0], choose_computer_move(M)[1]) != [ [_, R, _, M, _],
+                                                                                  [_, _, R, _, _],
+                                                                                  [_, R, M, R, _],
+                                                                                  [_, _, _, _, _],
+                                                                                  [R, _, _, _, M] ]
+
+    set_board(board1a)
+    assert make_move(choose_computer_move(M)[0], choose_computer_move(M)[1]) != [ [_, _, _, M, _],
+                                                                                  [_, _, R, M, _],
+                                                                                  [_, R, M, R, _],
+                                                                                  [_, R, _, _, _],
+                                                                                  [_, _, _, R, _] ]
     # Replace with tests; should work for both 'M' and 'R'
     pass
 
