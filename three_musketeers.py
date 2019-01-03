@@ -327,20 +327,22 @@ def is_enemy_win():
     """Returns True if all 3 Musketeers are in the same row or column."""
     enemy_win = False
 
-    for i in range(5):
+    for row in range(5):
         board_column = []
-        if board[i].count("M") == 3:
+        if board[row].count("M") == 3:
             enemy_win = True
             break
         else:
-            for j in range(5):
-                board_column.append(board[j][i])
+            for column in range(5):
+                board_column.append(board[column][row])
                 if board_column.count("M") == 3:
                     enemy_win = True
 
     return enemy_win
-
-
+"""
+now thats the last function done. Im just writing this comment as github refuses to notice any changes between this newer version that passes all tests and the previous one that failed the is_enemy_win function,
+regardless of using the git add . or git add <file name> command
+"""
 # ---------- Communicating with the user ----------
 # ----you do not need to modify code below unless you find a bug
 # ----a bug in it before you move to stage 3

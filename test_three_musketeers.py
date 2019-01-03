@@ -396,6 +396,9 @@ def test_is_enemy_win():
     # Replace with tests
     pass
 
-#will need to complete for monday
+"""
+now thats the last function done. Im just writing this comment as github refuses to notice any changes between this newer version that passes all tests and the previous one that failed the is_enemy_win function,
+regardless of using the git add . or git add <file name> command
+"""
 
 
