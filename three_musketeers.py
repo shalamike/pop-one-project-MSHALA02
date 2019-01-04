@@ -12,7 +12,7 @@
 # For brevity, Cardinal Richleau's men are referred to as "enemy".
 # 'pass' is a no-nothing Python statement. Replace it with actual code.
 import random
-
+import json
 
 def create_board():
     global board
@@ -77,7 +77,7 @@ def string_to_location(s):
         raise ValueError('Invalid Location')
 
     return to_location
-
+    #simply checks to see if the string is valid
 
 def location_to_string(location):
     """Returns the string representation of a location.
@@ -118,9 +118,9 @@ def all_locations():
     # probably going to have to use an iterative or recursive command to return all 25 locations
     every_location = []
     location = ()
-    for i in range(5):
-        for j in range(5):
-            location = (i, j)
+    for row in range(5):
+        for column in range(5):
+            location = (row, column)
             every_location.append(location)
 
     return every_location
@@ -152,6 +152,7 @@ def is_legal_move_by_musketeer(location, direction):
     You can assume that input will always be in correct range. Raises
     ValueError exception if at(location) is not 'M'"""
 
+    # even though we can assume that the input will allways be in the correct range, this if statement seems to ensure the functions only called when at(locaiton) == M
     if at(location) != "M":
         raise ValueError("Not A Musketeer")
     else:
@@ -183,6 +184,8 @@ def is_legal_move(location, direction):
     in the given direction.
     You can assume that input will always be in correct range."""
     # pass # Replace with code
+
+    # this function will call either is_legal_move_by_enemy or is_legal_move_by_musketeer depending whether the piece is "M" or "R" on the board
     if at(location) == "M":
         return is_legal_move_by_musketeer(location, direction)
     elif at(location) == "R":
@@ -194,6 +197,8 @@ def can_move_piece_at(location):
         You can assume that input will always be in correct range.
         You can assume that input will always be in correct range."""
     # pass # Replace with code
+
+    #this function loops through all the direction a piece can travel untill a legal move is encountered
     all_possible_directions = ["up", "down", "left", "right"]
 
     can_move = False
@@ -213,6 +218,7 @@ def has_some_legal_move_somewhere(who):
     You can assume that input will always be in correct range."""
     # pass # Replace with code
 
+    # this function will loop through all locations until a legal move is encountered for either player cpu or human:
     has_a_legal_move = False
 
     if who == "M":
@@ -237,6 +243,8 @@ def possible_moves_from(location):
        location, returns the empty list, [].
        You can assume that input will always be in correct range."""
     # pass # Replace with code
+
+    #this funciton will loop through the list of all possible moves at a given location provided that a move is possible.
     all_possible_directions = ["up", "down", "left", "right"]
 
     valid_directions = []
@@ -254,6 +262,7 @@ def is_legal_location(location):
     You can assume that input will always be in correct range."""
     # pass # Replace with code
 
+    # simply calls the all locations functions and assesses if the given location is within the list of all locations
     location_is_legal = False
 
     if location in all_locations():
@@ -267,6 +276,7 @@ def is_within_board(location, direction):
     You can assume that input will always be in correct range."""
     # pass # Replace with code
 
+    #this fucntion assesses if the adjacent location will remain in within the list of all locations.
     move_is_legal = False
 
     if adjacent_location(location, direction) in all_locations():
@@ -280,6 +290,8 @@ def all_possible_moves_for(player):
        (location, direction) tuples.
        You can assume that input will always be in correct range."""
     # pass # Replace with code
+
+    #this function will loop through all locations and create a list of all possible moves for the given player
     all_possible_moves = []
 
     if has_some_legal_move_somewhere(player) == True:
@@ -296,16 +308,17 @@ def make_move(location, direction):
     Doesn't check if the move is legal. You can assume that input will always
     be in correct range."""
     # pass # Replace with code
-    global board
+
+    # this function will replace the new location with either "M" or "R" depending on who is making the move and will replace the previous location with "_"
+
+    global board #although the board is a global variable, for demonstrative purposes
 
     new_location = adjacent_location(location, direction)
     original_location = (location)
-    board[new_location[0]][new_location[1]] = at(location)
-    board[original_location[0]][original_location[1]] = "_"
+    board[new_location[0]][new_location[1]] = at(location) #replacing the new location with the players board piece
+    board[original_location[0]][original_location[1]] = "_" #replacing the original location with a blank location
 
     set_board(board)
-
-
 
 
 def choose_computer_move(who):
@@ -315,6 +328,7 @@ def choose_computer_move(who):
        You can assume that input will always be in correct range."""
     # pass # Replace with code
 
+    #this function simply picks a random move from list of all possible moves
     computer_move = random.choice(all_possible_moves_for(who))
 
     return computer_move
@@ -324,18 +338,52 @@ def is_enemy_win():
     """Returns True if all 3 Musketeers are in the same row or column."""
     enemy_win = False
 
+
     for row in range(5):
         board_column = []
         if board[row].count("M") == 3:
             enemy_win = True
-            break
+            break # this part of the loop assesses if the musketeers are on the same row
         else:
             for column in range(5):
                 board_column.append(board[column][row])
                 if board_column.count("M") == 3:
                     enemy_win = True
+                    break # this part of the loop assesses if the musketeers are on the same column
 
     return enemy_win
+
+
+def save():
+    global board
+
+    m = 'M'
+    r = 'R'
+    _ = '_'
+
+    user_side = choose_users_side()
+    current_board = get_board()
+
+    with open("currentgame.txt", "w") as filehandle:
+        json.dump(current_board, filehandle)
+
+        print("game successfully saved")
+
+    #this functin creates a save file as a text file using json.dump
+
+def load():
+    m = 'M'
+    r = 'R'
+    _ = '_'
+
+
+    with open ("currentgame.txt", "r") as json_file:
+        currentgame = json.load(json_file)
+
+    set_board(currentgame)
+
+    #this funtion should load the game from one of the previous user games. however getting the game to load doesnt seem to be working yet
+
 """
 now thats the last function done. Im just writing this comment as github refuses to notice any changes between this newer version that passes all tests and the previous one that failed the is_enemy_win function,
 regardless of using the git add . or git add <file name> command
@@ -385,7 +433,11 @@ def get_users_move():
        (location, direction) tuple."""
     directions = {'L': 'left', 'R': 'right', 'U': 'up', 'D': 'down'}
     move = input("Your move? ").upper().replace(' ', '')
-    if (len(move) >= 3
+    #added an initial condition for move to allow the player to save the game
+    if move == ("s") or move == ("S") or move == ("save"):
+        save()
+
+    elif (len(move) >= 3
         and move[0] in 'ABCDE'
         and move[1] in '12345'
         and move[2] in 'LRUD'):
@@ -448,6 +500,7 @@ def start():
     board = create_board()
     print_instructions()
     print_board()
+
     while True:
         if has_some_legal_move_somewhere('M'):
             board = move_musketeer(users_side)
@@ -464,3 +517,4 @@ def start():
         else:
             print("The Musketeers win!")
             break
+
