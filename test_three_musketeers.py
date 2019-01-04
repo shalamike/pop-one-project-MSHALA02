@@ -17,7 +17,7 @@ board1 =  [ [_, _, _, M, _],
             [_, R, _, _, _],
             [_, _, _, R, _] ]
 
-#this board is a backup of the original one to be used after the make move tests as they will manipulate the orriginal places on the board
+#this board is a backup of the original one to be used after the make move tests as they will manipulate the original places on the board
 board1a =  [ [_, _, _, M, _],
             [_, _, R, M, _],
             [_, R, M, R, _],
@@ -338,46 +338,42 @@ def test_all_possible_moves_for1():
 
 def test_make_move():
 
-    set_board(board1)
-    assert make_move((2,2), up) == [ [_, _, _, M, _],
-                                     [_, _, M, M, _],
-                                     [_, R, _, R, _],
-                                     [_, R, _, _, _],
-                                     [_, _, _, R, _] ]
+    set_board(board1a)
+    make_move((2,2), up)
+    assert board1a == [ [_, _, _, M, _],
+                        [_, _, M, M, _],
+                        [_, R, _, R, _],
+                        [_, R, _, _, _],
+                        [_, _, _, R, _] ]
+
+    make_move((4, 3), left)
+    assert board1a == [ [_, _, _, M, _],
+                        [_, _, M, M, _],
+                        [_, R, _, R, _],
+                        [_, R, _, _, _],
+                        [_, _, R, _, _] ]
+
+    make_move((2, 3), right)
+    assert board1a == [ [_, _, _, M, _],
+                        [_, _, M, M, _],
+                        [_, R, _, _, R],
+                        [_, R, _, _, _],
+                        [_, _, R, _, _] ]
 
 
-    set_board(board1)
-    assert make_move((4,3), left) == [ [_, _, _, M, _],
-                                       [_, _, M, M, _],
-                                       [_, R, _, R, _],
-                                       [_, R, _, _, _],
-                                       [_, _, R, _, _] ]
 
-    set_board(board1)
-    assert  make_move((2,3), right) == [ [_, _, _, M, _],
-                                         [_, _, M, M, _],
-                                         [_, R, _, _, R],
-                                         [_, R, _, _, _],
-                                         [_, _, R, _, _] ]
+
+
 
     # Replace with tests
     #pass
 
 def test_choose_computer_move():
     set_board(board2)
-    assert make_move(choose_computer_move(M)[0], choose_computer_move(M)[1]) != [ [_, R, _, M, _],
-                                                                                  [_, _, R, _, _],
-                                                                                  [_, R, M, R, _],
-                                                                                  [_, _, _, _, _],
-                                                                                  [R, _, _, _, M] ]
+    assert make_move(choose_computer_move(M)[0], choose_computer_move(M)[1]) != board2
 
-    set_board(board1a)
-    assert make_move(choose_computer_move(M)[0], choose_computer_move(M)[1]) != [ [_, _, _, M, _],
-                                                                                  [_, _, R, M, _],
-                                                                                  [_, R, M, R, _],
-                                                                                  [_, R, _, _, _],
-                                                                                  [_, _, _, R, _] ]
-    # Replace with tests; should work for both 'M' and 'R'
+    set_board(board1)
+    assert make_move(choose_computer_move(M)[0], choose_computer_move(M)[1]) != board1
     pass
 
 def test_is_enemy_win():

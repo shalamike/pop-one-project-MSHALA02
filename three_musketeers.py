@@ -155,8 +155,7 @@ def is_legal_move_by_musketeer(location, direction):
     if at(location) != "M":
         raise ValueError("Not A Musketeer")
     else:
-        if adjacent_location(location, direction) in all_locations() and at(location) == "M" and at(
-                adjacent_location(location, direction)) == "R":
+        if adjacent_location(location, direction) in all_locations() and at(location) == "M" and at(adjacent_location(location, direction)) == "R":
             return True
         else:
             return False
@@ -172,8 +171,7 @@ def is_legal_move_by_enemy(location, direction):
     if at(location) != "R":
         raise ValueError("Not Cardinal Richleau's men")
     else:
-        if adjacent_location(location, direction) in all_locations() and at(location) == "R" and at(
-                adjacent_location(location, direction)) == "_":
+        if adjacent_location(location, direction) in all_locations() and at(location) == "R" and at(adjacent_location(location, direction)) == "_":
             # if at(location) == "R" and  at(adjacent_location(location,direction)) == "_" and adjacent_location(location, direction) in all_locations():
             return True
         else:
@@ -298,17 +296,16 @@ def make_move(location, direction):
     Doesn't check if the move is legal. You can assume that input will always
     be in correct range."""
     # pass # Replace with code
+    global board
 
-    current_board = get_board()
-    if is_legal_location(location) == True and is_legal_move(location, direction) == True and can_move_piece_at(
-            location) == True:
-        new_move = adjacent_location(location, direction)
-        current_board[new_move[0]][new_move[1]] = at(location)
-        current_board[location[0]][location[1]] = "_"
+    new_location = adjacent_location(location, direction)
+    original_location = (location)
+    board[new_location[0]][new_location[1]] = at(location)
+    board[original_location[0]][original_location[1]] = "_"
 
-    (set_board(current_board))
+    set_board(board)
 
-    return board
+
 
 
 def choose_computer_move(who):
