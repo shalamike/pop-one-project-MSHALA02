@@ -403,12 +403,6 @@ def load():
             break
 
 
-    #this funtion should load the game from one of the previous user games. however getting the game to load doesnt seem to be working yet
-
-"""
-now thats the last function done. Im just writing this comment as github refuses to notice any changes between this newer version that passes all tests and the previous one that failed the is_enemy_win function,
-regardless of using the git add . or git add <file name> command
-"""
 # ---------- Communicating with the user ----------
 # ----you do not need to modify code below unless you find a bug
 # ----a bug in it before you move to stage 3
@@ -448,13 +442,15 @@ def choose_users_side():
             user = answer.upper()[0]
     return user
 
-
+"""
+modified the get_users_move() function to allow the player to save the game.
+"""
 def get_users_move():
     """Gets a legal move from the user, and returns it as a
        (location, direction) tuple."""
     directions = {'L': 'left', 'R': 'right', 'U': 'up', 'D': 'down'}
-    move = input("Your move? ").upper().replace(' ', '')
-    #added an initial condition for move to allow the player to save the game
+    move = input("to save game press 's' OR choose your move: ").upper().replace(' ', '')
+    #added an initial condition for move variable to allow the player to save the game
     if move == ("s") or move == ("S") or move == ("save"):
         save()
     elif (len(move) >= 3
@@ -509,6 +505,7 @@ def move_enemy(users_side):
 def describe_move(who, location, direction):
     """Prints a sentence describing the given move."""
     new_location = adjacent_location(location, direction)
+    print()
     print(who, 'moves', direction, 'from', \
           location_to_string(location), 'to', \
           location_to_string(new_location) + ".\n")
@@ -538,3 +535,16 @@ def start():
             print("The Musketeers win!")
             break
 
+"""
+added this input variable and loop to determine if the user wants to start a new game or load an existing game.
+this is to create a more user friendly experience. 
+"""
+intro = input("to start a new game press 'n' or to load an existing game, press 'l' :")
+
+while intro != "n" or intro != "N" or intro != "l" or intro != "L":
+    if intro == "n" or intro == "N":
+        start()
+    elif intro == "l" or intro == "L":
+        load()
+    else:
+        intro = input("to start a new game press 'n' or to load an existing game, press 'l' :")
