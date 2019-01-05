@@ -6,7 +6,6 @@ from three_musketeers import *
 def save(): # this function saves the board in its current state so user can continue game at a later time
 
     current_board = get_board()
-
     """
     these next two lines writes the board onto a text file as a filehandle,
     so that the file will open as a nested list (which the board is) rather than a string.
@@ -27,8 +26,10 @@ def load(): # this function loads the game so that the user can continue a previ
 
     with open ("currentgame.txt", "r") as filehandle:
         current_board = json.load(filehandle)
-
-
+    """
+    the following lines where mostly copied (apeart from the set board function) from the start() function on the main three_musketeers.py file.
+    this is to ensure that the game will run from the user once they load their current game. 
+    """
     set_board(current_board)
     print_board()
     users_side = choose_users_side()
