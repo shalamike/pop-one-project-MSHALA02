@@ -329,6 +329,7 @@ def choose_computer_move(who):
     # pass # Replace with code
 
     #this function simply picks a random move from list of all possible moves
+
     computer_move = random.choice(all_possible_moves_for(who))
 
     return computer_move
@@ -361,7 +362,6 @@ def save():
     r = 'R'
     _ = '_'
 
-    user_side = choose_users_side()
     current_board = get_board()
 
     with open("currentgame.txt", "w") as filehandle:
@@ -377,10 +377,31 @@ def load():
     _ = '_'
 
 
-    with open ("currentgame.txt", "r") as json_file:
-        currentgame = json.load(json_file)
+    with open ("currentgame.txt", "r") as filehandle:
+        current_board = json.load(filehandle)
 
-    set_board(currentgame)
+    set_board(current_board)
+
+    print_board()
+
+    users_side = choose_users_side()
+    while True:
+        if has_some_legal_move_somewhere('M'):
+            board = move_musketeer(users_side)
+            print_board()
+            if is_enemy_win():
+                print("Cardinal Richleau's men win!")
+                break
+        else:
+            print("The Musketeers win!")
+            break
+        if has_some_legal_move_somewhere('R'):
+            board = move_enemy(users_side)
+            print_board()
+        else:
+            print("The Musketeers win!")
+            break
+
 
     #this funtion should load the game from one of the previous user games. however getting the game to load doesnt seem to be working yet
 
@@ -436,7 +457,6 @@ def get_users_move():
     #added an initial condition for move to allow the player to save the game
     if move == ("s") or move == ("S") or move == ("save"):
         save()
-
     elif (len(move) >= 3
         and move[0] in 'ABCDE'
         and move[1] in '12345'
