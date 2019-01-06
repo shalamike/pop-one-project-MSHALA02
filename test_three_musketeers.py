@@ -154,13 +154,7 @@ def test_all_locations():
     pass
 
 def test_adjacent_location():
-    """
-    with pytest.raises(ValueError):
-        adjacent_location((4,4), down)
-        adjacent_location((4,4), right)
-        adjacent_location((0,0), up)
-        adjacent_location((0,0),left)
-    """
+
     assert adjacent_location((1,1), down) == (2,1)
     assert adjacent_location((3,3), left) == (3,2)
     assert adjacent_location((4,4), up) == (3,4)
@@ -228,14 +222,7 @@ def test_is_legal_move():
     assert is_legal_move((4,4), up) == False
 
 
-"""
-Skeleton code for test legal move
-    assert is_legal_move_by_enemy((), ) == True
-    assert is_legal_move_by_musketeer((), ) == True
-    assert is_legal_move_by_enemy((), ) == False
-    assert is_legal_move_by_musketeer((), ) == False
 
-"""
 
 def test_can_move_piece_at():
     set_board(board1)
