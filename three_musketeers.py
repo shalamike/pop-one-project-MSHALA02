@@ -355,15 +355,18 @@ def is_enemy_win():
     return enemy_win
 
 
-def save():
-    global board
+import random
+import json
+from three_musketeers import *
 
-    m = 'M'
-    r = 'R'
-    _ = '_'
+
+def save(): # this function saves the board in its current state so user can continue game at a later time
 
     current_board = get_board()
-
+    """
+    these next two lines writes the board onto a text file as a filehandle,
+    However, it will still be saved as a string using json.dump as it converts objects to strings. 
+    """
     with open("currentgame.txt", "w") as filehandle:
         json.dump(current_board, filehandle)
 
@@ -371,20 +374,23 @@ def save():
 
     #this functin creates a save file as a text file using json.dump
 
-def load():
-    m = 'M'
-    r = 'R'
-    _ = '_'
+def load(): # this function loads the game so that the user can continue a previously running game
 
+    """
+    these next two lines opens the board from the newly created text file containing the current game
+    as the board is saved as a string, the json.load command will convert the string back into an object
+    """
 
     with open ("currentgame.txt", "r") as filehandle:
         current_board = json.load(filehandle)
-
+    """
+    the following lines where mostly copied (apeart from the set board function) from the start() function on the main three_musketeers.py file.
+    this is to ensure that the game will run from the user once they load their current game. 
+    """
     set_board(current_board)
-
     print_board()
-
     users_side = choose_users_side()
+
     while True:
         if has_some_legal_move_somewhere('M'):
             board = move_musketeer(users_side)
@@ -401,6 +407,7 @@ def load():
         else:
             print("The Musketeers win!")
             break
+
 
 
 # ---------- Communicating with the user ----------
