@@ -14,6 +14,7 @@
 import random
 import json
 
+
 def create_board():
     global board
     """Creates the initial Three Musketeers board and makes it globally
@@ -173,7 +174,6 @@ def is_legal_move_by_enemy(location, direction):
         raise ValueError("Not Cardinal Richleau's men")
     else:
         if adjacent_location(location, direction) in all_locations() and at(location) == "R" and at(adjacent_location(location, direction)) == "_":
-            # if at(location) == "R" and  at(adjacent_location(location,direction)) == "_" and adjacent_location(location, direction) in all_locations():
             return True
         else:
             return False
@@ -244,7 +244,7 @@ def possible_moves_from(location):
        You can assume that input will always be in correct range."""
     # pass # Replace with code
 
-    #this funciton will loop through the list of all possible moves at a given location provided that a move is possible.
+    #this loop through the list of all possible moves at a given location provided that a move is possible.
     all_possible_directions = ["up", "down", "left", "right"]
 
     valid_directions = []
@@ -353,12 +353,6 @@ def is_enemy_win():
                     break # this part of the loop assesses if the musketeers are on the same column
 
     return enemy_win
-
-
-import random
-import json
-from three_musketeers import *
-
 
 def save(): # this function saves the board in its current state so user can continue game at a later time
 
@@ -543,15 +537,28 @@ def start():
             break
 
 """
-added this input variable and loop to determine if the user wants to start a new game or load an existing game.
-this is to create a more user friendly experience. 
+created a function that gets called immediatly when the program runs. eliminates the need for someone to have the enter either start() or load() every time they want to play.
+the function simply contains a while loops which lets the player load a game by entering 'l' or start a new game by entering 'n'.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+This function has been commented out from the main three_musketeers file as it prohibits any test cases from working on pytest. Therefore, for the purposes of this submission, 
+it has been commented out to demonstrate that all the functions made for this assignment will pass all their test cases made. 
 """
-intro = input("to start a new game press 'n' or to load an existing game, press 'l' :")
 
-while intro != "n" or intro != "N" or intro != "l" or intro != "L":
-    if intro == "n" or intro == "N":
-        start()
-    elif intro == "l" or intro == "L":
-        load()
-    else:
-        intro = input("to start a new game press 'n' or to load an existing game, press 'l' :")
+"""
+def introduction():
+    intro = input("to start a new game press 'n' or to load an existing game, press 'l' :")
+    while intro != "n" or intro != "N" or intro != "l" or intro != "L":
+        if intro == "n" or intro == "N":
+            start()
+        elif intro == "l" or intro == "L":
+            load()
+        else:
+            intro = input("to start a new game press 'n' or to load an existing game, press 'l' :")
+
+introduction()
+
+"""
+
+#this print statement was put in place as a minor stop-gap replacement for the introduction() function. It instructs the user how to start a new game or load current one. 
+
+print("To start a new game, enter 'start()' or to load an ongoing game, enter 'load()'")
