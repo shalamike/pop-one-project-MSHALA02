@@ -1,0 +1,28 @@
+Total coursework mark: 18.5  (out of 20)
+
+Exercise sheets mark:  10  (out of 10)
+
+Project mark: 8.5  (out of 10)
+
+Project feedback and mark details
+
+Correctness and adherence to specification:  30%  (out of 30%)
+The game is correct and adheres to the specification.
+
+Completeness of code, tests, and commit history:  30%    (out of 30%)   
+
+Tests pass, are comprehensive enough, with suitable coverage for the scope of this work. Commit history is “healthy”. Code is also complete. 
+
+Coding style: 10%   (out of 10%) 
+Coding style is good.
+
+Extension:  15%     (out of 30%) 
+Extension was implemented but does not work properly. The save functionality also has some undesirable behaviour as can be seen from below:
+
+to save game press 's' OR choose your move: s
+game successfully saved
+Illegal move--'S'
+
+The game saves overwrites the previous one, it would be good to be given the option to save multiple files.
+
+Finally a player is able to save their game playing as an M, and then load the game to play as an R. This behaviour is also considered a bug.
